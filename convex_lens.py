@@ -14,7 +14,7 @@ class Intro(Scene):
         # Move it smoothly to bottom
         self.play(
             text.animate
-            .scale(100)
+            .scale(10)
             .fade(1),
             run_time=2
         )
