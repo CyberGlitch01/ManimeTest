@@ -1,6 +1,24 @@
 from manim import *
 import numpy as np
 
+class Intro(Scene):
+    def construct(self):
+        animatedBy = Text("Mathematics of a circle", font_size=24)
+        animatedBy.to_corner(DR)
+        animatedBy.set_opacity(0.5)
+        self.add(animatedBy)
+        text = Text("Innovative Creations of software technology", font_size=24)
+        self.play(Write(text))
+        self.wait(1)
+
+        self.play(
+            text.animate
+            .scale(10)
+            .fade(1),
+            run_time=2
+        )
+        self.wait(1)
+
 class CircleScene(Scene):
     def construct(self):
         axes = NumberPlane(
