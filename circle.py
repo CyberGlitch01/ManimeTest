@@ -23,9 +23,9 @@ class CircleScene(Scene):
     def construct(self):
         axes = NumberPlane(
             x_range=[-10, 10, 1],
-            y_range=[-6, 6, 1],
-        )
-        self.play(Create(axes), run_time=3)
+            y_range=[-100, 100, 1],
+        ).scale(0.6)
+        self.add(axes)
 
         h_val = ValueTracker(0)
         k_val = ValueTracker(0)
@@ -45,7 +45,7 @@ class CircleScene(Scene):
             ]),
             t_range=[0, TAU],
             color=WHITE
-        )
+        ).scale(0.6)
 
         circle.add_updater(
             lambda mob: mob.become(
@@ -57,21 +57,21 @@ class CircleScene(Scene):
                     ]),
                     t_range=[0, TAU],
                     color=WHITE
-                )
+                ).scale(0.6)
             )
         )
 
         self.play(Create(circle), run_time=3)
 
         equation = MathTex(
-            "(x - 0)^2 + (y - 0)^2 = 2^2",
+            f"(x + ({-h_val.get_value()}))^2 + (y + ({-k_val.get_value()}))^2 = 2^2",
             font_size=48
         )
         equation.to_corner(UR)
 
         def eq_updater(mob):
             new_eq = MathTex(
-                f"(x - {h_val.get_value():.1f})^2 + (y - {k_val.get_value():.1f})^2 = {r_val.get_value():.1f}^2",
+                f"(x + ({-h_val.get_value():.1f}))^2 + (y + ({-k_val.get_value():.1f}))^2 = {r_val.get_value():.1f}^2",
                 font_size=48
             )
             new_eq.to_corner(UR)
