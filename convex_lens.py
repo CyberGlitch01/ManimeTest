@@ -11,14 +11,14 @@ class Intro(Scene):
         self.play(Write(text))
         self.wait(1)
 
-        # Move it smoothly to bottom
+        
         self.play(
             text.animate
             .scale(10)
             .fade(1),
             run_time=2
         )
-        # self.play(text.animate.fade_to(color=None, alpha=0, family=>
+        
         self.wait(1)
 
 class ConvexLens(Scene):
@@ -31,12 +31,12 @@ class ConvexLens(Scene):
         self.play(Create(heading))
         self.wait(1)
 
-        # Principal axis
+        
         principal_axis = Line(LEFT * 5, RIGHT * 5, color=WHITE)
         self.play(Create(principal_axis))
         self.wait(1)
 
-        # Lens parameters
+        
         objectDistance = -5
         radiusofSurface1 = 1.5
         radiusofSurface2 = 1.8
@@ -63,7 +63,7 @@ class ConvexLens(Scene):
         )
         self.add(focalLengthTracker)
 
-        # Lens shape
+        
         lensSurface1 = Arc(
             radius=radiusofSurface1,
             start_angle=5 * PI / 6,
@@ -85,7 +85,7 @@ class ConvexLens(Scene):
         self.play(Create(lensSurface1), Create(lensSurface2))
         self.wait(1)
 
-        # Centers and focus
+        
         
         centre_of_curvature1 = Dot(
             lensSurface1.get_center() + [radiusofSurface1, 0, 0],
@@ -112,10 +112,10 @@ class ConvexLens(Scene):
         self.play(GrowFromCenter(centre_of_curvature1), GrowFromCenter(centre_of_curvature2))
         self.wait(0.5)
 
-        # Tracker for object movement
+        
         tracker = ValueTracker(objectDistance)
 
-        # Function to create an arrow for object and image
+        
         def create_arrow(position_x, height=1.0, color=GREEN):
             """Creates a vertical arrow with a head, base on the principal axis."""
             return Arrow(
@@ -127,7 +127,7 @@ class ConvexLens(Scene):
                 max_tip_length_to_length_ratio=0.25
             )
 
-        # Create initial object and image arrows
+        
         object_arrow = create_arrow(lensSurface1.get_center()[0] + tracker.get_value(), height=1.0, color=GREEN)
         image_arrow = create_arrow(
             lensSurface1.get_center()[0]
@@ -144,7 +144,7 @@ class ConvexLens(Scene):
         self.play(GrowArrow(image_arrow))
         self.wait(0.5)
 
-        # Updater for object arrow
+        
         object_arrow.add_updater(
             lambda mob: mob.become(
                 create_arrow(
@@ -156,7 +156,7 @@ class ConvexLens(Scene):
             )
         )
 
-        # Updater for image arrow
+        
         image_arrow.add_updater(
             lambda mob: mob.become(
                 create_arrow(
@@ -165,7 +165,7 @@ class ConvexLens(Scene):
                     height=Lens.magnification(
                         tracker.get_value(),
                         Lens.calculateImagePosition(focalLengthTracker.get_value(), tracker.get_value())
-                    ),  # scale height based on magnification
+                    ),  
                     color=RED
                 )
             )
@@ -223,7 +223,7 @@ class ConvexLens(Scene):
             .to_corner(DL)
         )
         self.play(Create(value_text2))
-        # Animate object movement
+        
         self.play(tracker.animate.set_value(-0.1), run_time=20)
         self.wait(2)
 
